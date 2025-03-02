@@ -336,7 +336,7 @@ CREATE TABLE user_authentication (
   CONSTRAINT FK_user_authentication_users FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
-CREATE TABLE groups (
+CREATE TABLE groups_info (
   group_id INTEGER,
   principal_id NUMERIC(19) NOT NULL,
   group_name VARCHAR(255) NOT NULL,
@@ -351,7 +351,7 @@ CREATE TABLE members (
   group_id INTEGER NOT NULL,
   user_id INTEGER NOT NULL,
   CONSTRAINT PK_members PRIMARY KEY (member_id),
-  CONSTRAINT FK_members_group_id FOREIGN KEY (group_id) REFERENCES groups (group_id),
+  CONSTRAINT FK_members_group_id FOREIGN KEY (group_id) REFERENCES groups_info (group_id),
   CONSTRAINT FK_members_user_id FOREIGN KEY (user_id) REFERENCES users (user_id),
   CONSTRAINT UNQ_members_0 UNIQUE (group_id, user_id));
 
