@@ -112,7 +112,12 @@ class HBASEServiceAdvisor(service_advisor.ServiceAdvisor):
     host index where component should exist.
     Must be overriden in child class.
     """
-    self.componentLayoutSchemes.update({"HBASE_MASTER": {6: 0, 31: 2, "else": 3}})
+    self.componentLayoutSchemes.update(
+      {
+        "HBASE_MASTER": {6: 0, 31: 2, "else": 3},
+        "HBASE_THRIFT": {6: 0, 31: 0, "else": 0},
+      }
+    )
 
   def getServiceComponentLayoutValidations(self, services, hosts):
     """
@@ -186,7 +191,7 @@ class HBASEServiceAdvisor(service_advisor.ServiceAdvisor):
     )
 
   def isComponentUsingCardinalityForLayout(self, componentName):
-    return componentName == "PHOENIX_QUERY_SERVER"
+    return componentName in ["PHOENIX_QUERY_SERVER", "HBASE_THRIFT"]
 
 
 class HBASERecommender(service_advisor.ServiceAdvisor):

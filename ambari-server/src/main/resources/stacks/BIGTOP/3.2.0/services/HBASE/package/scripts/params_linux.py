@@ -177,6 +177,11 @@ hbase_regionserver_shutdown_timeout = expect(
   "/configurations/hbase-env/hbase_regionserver_shutdown_timeout", int, 30
 )
 
+hbase_thrift_port = default("/configurations/hbase-thrift-site/hbase.thrift.port", "9091")
+hbase_thrift_info_port = default(
+  "/configurations/hbase-thrift-site/hbase.thrift.info.port", "9095"
+)
+
 phoenix_hosts = default("/clusterHostInfo/phoenix_query_server_hosts", [])
 phoenix_enabled = default("/configurations/hbase-env/phoenix_sql_enabled", False)
 has_phoenix = len(phoenix_hosts) > 0
