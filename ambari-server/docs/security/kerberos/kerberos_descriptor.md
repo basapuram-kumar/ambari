@@ -829,3 +829,19 @@ JSON-formatted file.
   ]
 }
 ```
+
+<a name="kafka-client-component"></a>
+### Kafka KAFKA_CLIENT component
+
+BIGTOP 3.2.0+ defines a `KAFKA_CLIENT` component in the Kafka service Kerberos descriptor. The
+component references the `KAFKA_BROKER` service identity so each client host receives its own
+`kafka/_HOST@REALM` principal and keytab (via `_HOST` expansion on that host).
+
+When Kerberos is enabled, `kafka_client_jaas_conf` uses keytab-based login instead of the
+ticket cache. This allows unattended Kafka CLI tools on client-only hosts after Ambari distributes
+credentials. The same template is applied cluster-wide on config refresh, including broker hosts.
+
+**Upgrade note:** Existing Kerberos clusters that relied on interactive ticket-cache authentication
+for Kafka CLI tools should plan to install `KAFKA_CLIENT` on gateway/client hosts and re-run
+**Enable Kerberos** or distribute credentials so keytabs are present before the next Kafka config
+refresh.

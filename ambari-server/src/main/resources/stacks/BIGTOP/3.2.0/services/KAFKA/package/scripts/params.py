@@ -19,6 +19,7 @@ limitations under the License.
 """
 
 import os
+import re
 from resource_management.libraries.script.script import Script
 from resource_management.libraries.functions.version import (
   format_stack_version,
@@ -649,3 +650,10 @@ HdfsResource = functools.partial(
   immutable_paths=get_not_managed_resources(),
   dfs_type=dfs_type,
 )
+
+# Kafka Client: broker port parsed from listeners (no dedicated port property)
+_listeners = default(
+  "/configurations/kafka-broker/listeners", "PLAINTEXT://localhost:9092"
+)
+_kafka_port_match = re.search(r":(\d+)", _listeners.split(",")[0])
+kafka_broker_port = int(_kafka_port_match.group(1)) if _kafka_port_match else 9092

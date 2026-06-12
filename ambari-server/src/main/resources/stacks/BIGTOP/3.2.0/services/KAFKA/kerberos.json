@@ -57,6 +57,15 @@
               }
             }
           ]
+        },
+        {
+          "name": "KAFKA_CLIENT",
+          "identities": [
+            {
+              "name": "kafka_kafka_client_kafka_broker",
+              "reference": "/KAFKA/KAFKA_BROKER/kafka_broker"
+            }
+          ]
         }
       ]
     }

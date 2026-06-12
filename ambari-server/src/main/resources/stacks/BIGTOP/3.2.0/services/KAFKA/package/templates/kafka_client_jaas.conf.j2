@@ -19,8 +19,10 @@
 {% if kerberos_security_enabled %}
 KafkaClient {
    com.sun.security.auth.module.Krb5LoginModule required
-   useTicketCache=true
-   renewTicket=true
+   useKeyTab=true
+   storeKey=true
+   keyTab="{{kafka_keytab_path}}"
+   principal="{{kafka_jaas_principal}}"
    serviceName="{{kafka_bare_jaas_principal}}";
 };
 {% endif %}

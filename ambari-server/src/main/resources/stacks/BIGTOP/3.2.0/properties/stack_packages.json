@@ -251,6 +251,18 @@
           "STANDARD": [
             "kafka-broker"
           ]
+        },
+        "KAFKA_CLIENT": {
+          "STACK-SELECT-PACKAGE": "kafka-broker",
+          "INSTALL": [
+            "kafka-broker"
+          ],
+          "PATCH": [
+            "kafka-broker"
+          ],
+          "STANDARD": [
+            "kafka-broker"
+          ]
         }
       },
       "MAPREDUCE2": {

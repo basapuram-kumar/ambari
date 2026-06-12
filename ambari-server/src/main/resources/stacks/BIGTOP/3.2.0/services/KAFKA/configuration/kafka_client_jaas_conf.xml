@@ -23,13 +23,15 @@
     <property>
         <name>content</name>
         <display-name>kafka_client_jaas template</display-name>
-        <description>Kafka client jaas config</description>
+        <description>Kafka client JAAS config. Uses keytab-based authentication (replacing ticket-cache) so unattended client-only hosts can authenticate after Ambari distributes credentials via the KAFKA_CLIENT Kerberos identity. Applies to all hosts on config refresh, including brokers. Clusters that relied on interactive ticket-cache authentication for Kafka CLI tools must verify keytabs are distributed to client hosts after upgrade; see ambari-server/docs/security/kerberos/kerberos_descriptor.md.</description>
         <value>
   {% if kerberos_security_enabled %}
   KafkaClient {
   com.sun.security.auth.module.Krb5LoginModule required
-  useTicketCache=true
-  renewTicket=true
+  useKeyTab=true
+  storeKey=true
+  keyTab="{{kafka_keytab_path}}"
+  principal="{{kafka_jaas_principal}}"
   serviceName="{{kafka_bare_jaas_principal}}";
   };
   {% endif %}
